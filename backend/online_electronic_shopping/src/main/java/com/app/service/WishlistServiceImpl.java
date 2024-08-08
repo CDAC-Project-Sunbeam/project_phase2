@@ -68,48 +68,48 @@ public class WishlistServiceImpl implements WishlistService {
 	}
 	@Override
 	public List<ProductResponseDTO> getWishlistProducts(Long customerId) {
-	    // Fetch the customer by ID, throw an exception if not found
+	   
 	    Customer customer = customerDao.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
 
-	    // Get the customer's wishlist
+	    
 	    Wishlist wishlist = customer.getWishlist();
 
-	    // If the wishlist is null, return an empty list
+	    
 	    if (wishlist == null) {
 	        return new ArrayList<>();
 	    }
 
-	    // Create a list to hold ProductDTOs
+	    
 	    List<ProductResponseDTO> productDTOs = new ArrayList<>();
 
-	    // Iterate over each WishlistItem in the wishlist
+	    
 	    for (WishlistItem wishlistItem : wishlist.getWishlistItems()) {
-	        // Get the product from the wishlist item
+	       
 	        Product product = wishlistItem.getProduct();
 	        
-	        // Map the product to a ProductDTO
+	        
 	        ProductResponseDTO productDTO = modelMapper.map(product, ProductResponseDTO.class);
 	        
-	        // Add the ProductDTO to the list
+	        
 	        productDTOs.add(productDTO);
 	    }
 
-	    // Return the list of ProductDTOs
+	   
 	    return productDTOs;
 	}
 	
 	@Override
 	public String removeProduct(Long productId, Long customerId) {
-	    // Fetch the customer by ID, throw an exception if not found
+	    
 	    Customer customer = customerDao.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
 
-	    // Get the customer's wishlist
+	    
 	    Wishlist wishlist = customer.getWishlist();
 	    if (wishlist == null) {
 	        throw new RuntimeException("Wishlist not found");
 	    }
 
-	    // Find the WishlistItem to delete
+	   
 	    WishlistItem itemToDelete = null;
 	    for (WishlistItem wishlistItem : wishlist.getWishlistItems()) {
 	        if (wishlistItem.getProduct().getId().equals(productId)) {
@@ -118,10 +118,10 @@ public class WishlistServiceImpl implements WishlistService {
 	        }
 	    }
 
-	    // If the item was found, remove it from the wishlist and delete it from the database
+	    
 	    if (itemToDelete != null) {
-	        wishlist.getWishlistItems().remove(itemToDelete);  // Remove from the collection
-	        wishlistItemDao.deleteById(itemToDelete.getId());              // Delete from the database
+	        wishlist.getWishlistItems().remove(itemToDelete);  
+	        wishlistItemDao.deleteById(itemToDelete.getId());  
 	    } else {
 	        throw new RuntimeException("Product not found in wishlist");
 	    }

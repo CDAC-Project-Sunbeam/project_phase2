@@ -6,3 +6,4 @@ public interface CategoryService {
 	public Category addCategoryDetails(String name);
 
 }
+

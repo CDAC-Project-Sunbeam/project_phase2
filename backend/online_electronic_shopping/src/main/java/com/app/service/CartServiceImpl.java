@@ -53,13 +53,14 @@ public class CartServiceImpl implements CartService {
         if (cart == null) {
             cart = new Cart();
             customer.setCart(cart);
-            cart.setCustomer(customer); // Set the back-reference
+            cart.setCustomer(customer); 
         }
         for (CartItem item : cart.getCartItems()) {
             if (item.getProduct().equals(product)) {
                 return "Product already in cart";
             }
         }
+        
         CartItem cartItem = new CartItem();
         cartItem.setProduct(product);
         cartItem.setQuantity(quantity);
@@ -71,47 +72,47 @@ public class CartServiceImpl implements CartService {
 	
 	@Override
 	public List<CartProductDTO> getCartProducts(Long customerId) {
-	    // Fetch the customer by ID, throw an exception if not found
+	    
 	    Customer customer = customerDao.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
 
-	    // Get the customer's wishlist
+	    
 	    Cart cart = customer.getCart();
 
-	    // If the wishlist is null, return an empty list
+	    
 	    if (cart == null) {
 	        return new ArrayList<>();
 	    }
 
-	    // Create a list to hold ProductDTOs
+	    
 	    List<CartProductDTO> productDTOs = new ArrayList<>();
 
-	    // Iterate over each WishlistItem in the wishlist
+	    
 	    for (CartItem cartItem : cart.getCartItems()) {
-	        // Get the product from the wishlist item
+	        
 	        Product product = cartItem.getProduct();
 	        
-	        // Map the product to a ProductDTO
+
 	        CartProductDTO productDTO = modelMapper.map(product, CartProductDTO.class);
 	        productDTO.setQuantity(cartItem.getQuantity());
-	        // Add the ProductDTO to the list
+	        
 	        productDTOs.add(productDTO);
 	    }
 
-	    // Return the list of ProductDTOs
+	    
 	    return productDTOs;
 	}
 	@Override
 	public String removeProduct(Long productId, Long customerId) {
-	    // Fetch the customer by ID, throw an exception if not found
+	   
 	    Customer customer = customerDao.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not found"));
 
-	    // Get the customer's wishlist
+	    
 	    Cart cart = customer.getCart();
 	    if (cart == null) {
 	        throw new RuntimeException("cart not found");
 	    }
 
-	    // Find the WishlistItem to delete
+	    
 	    CartItem itemToDelete = null;
 	    for (CartItem cartItem : cart.getCartItems()) {
 	        if (cartItem.getProduct().getId().equals(productId)) {
@@ -120,10 +121,10 @@ public class CartServiceImpl implements CartService {
 	        }
 	    }
 
-	    // If the item was found, remove it from the wishlist and delete it from the database
+	   
 	    if (itemToDelete != null) {
-	        cart.getCartItems().remove(itemToDelete);  // Remove from the collection
-	        cartItemDao.deleteById(itemToDelete.getId());              // Delete from the database
+	        cart.getCartItems().remove(itemToDelete);  
+	        cartItemDao.deleteById(itemToDelete.getId());              
 	    } else {
 	        throw new RuntimeException("Product not found in cart");
 	    }

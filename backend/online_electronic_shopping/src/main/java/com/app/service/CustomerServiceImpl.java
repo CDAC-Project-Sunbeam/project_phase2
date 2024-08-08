@@ -56,7 +56,7 @@ public class CustomerServiceImpl implements CustomerService {
 		//Customer customer1 = modelMapper.map(customer , Customer.class);
 	
 		if (customerDao.existsById(id)) {
-			// => exists
+			
 			Customer customer1=customerDao.findById(id).orElseThrow();
 			customer1.setFirstName(customer.getFirstName());
 			customer1.setLastName(customer.getLastName());
@@ -67,7 +67,7 @@ public class CustomerServiceImpl implements CustomerService {
 			System.out.println(customer1);
 			return "customer updated.....";
 		}
-//		throw new ResourceNotFoundException("Invalid Category ID !!!!!!!!");  
+ 
 			return "not updated";
 	}
 	public Address updateCustomerAddress(AddressDTO address , Long id) {
@@ -84,7 +84,7 @@ public class CustomerServiceImpl implements CustomerService {
 			System.out.println(customer1);
 			
 		}
-//		throw new ResourceNotFoundException("Invalid Category ID !!!!!!!!");  
+  
 		return address1;
 	}
 	

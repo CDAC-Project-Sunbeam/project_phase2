@@ -49,10 +49,10 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public UserDTO authenticateUser(SignInRequest request) {
-		// invoke dao's method
+		
 		User userEntity = userDao.findByEmailAndPassword(request.getEmail(), request.getPassword())
 				.orElseThrow(() -> new AuthenticationException("Invalid Email Or Password"));
-		// => valid login
+		
 		if(userEntity.getRole()==Role.valueOf("CUSTOMER")) {
 			return modelMapper.map(userEntity, CustomerDTO.class);
 		}

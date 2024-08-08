@@ -30,9 +30,9 @@ public class Wishlist extends BaseEntity {
 	    private Set<WishlistItem> wishlistItems=new HashSet<>();
 	    
 	    public void addNewItem(WishlistItem wishListItem) {
-			//add post ref to the list
+			
 			this.wishlistItems.add(wishListItem);
-			//assign category ref to the post
+			
 			wishListItem.setWishlist(this);
 		}
 }

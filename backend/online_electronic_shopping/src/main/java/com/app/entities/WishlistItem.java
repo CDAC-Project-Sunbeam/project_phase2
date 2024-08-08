@@ -23,6 +23,5 @@ public class WishlistItem extends BaseEntity{
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    // Getters and Setters
 
 }

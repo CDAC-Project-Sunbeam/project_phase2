@@ -19,13 +19,13 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@Override
 	public Category addCategoryDetails(String name) {
-		// validate if category already exists by the supplied name : B.L validation
+		
 		if (categoryDao.existsByName(name)) {
 			throw new ApiException("Category name duplicate !!!!!");
-		// => category name - unique
+		
 		}
 		Category category=new Category();
 		category.setName(name);
 		return categoryDao.save(category);
-	}// session.flush-> insert -> close
+	}
 }
