@@ -27,7 +27,7 @@ public class CartItem extends BaseEntity{
     private Product product;
     
     @Column(nullable = false)
-    private int quantity;
+    private Integer quantity;
   
 
     // Getters and Setters

@@ -1,6 +1,7 @@
 package com.app.entities;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -28,7 +29,13 @@ public class Cart extends BaseEntity{
 	    
 	    
 	    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	    private Set<CartItem> cartItems;
+	    private Set<CartItem> cartItems=new HashSet<CartItem>();
 
 	    // Getters and Setters
+	    public void addNewItem(CartItem cartItem) {
+			//add post ref to the list
+			this.cartItems.add(cartItem);
+			//assign category ref to the post
+			cartItem.setCart(this);
+		}
 }

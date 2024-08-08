@@ -59,6 +59,9 @@ public class Product extends BaseEntity{
 	    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	    private List<ProductImage> images = new ArrayList<>();
 	    
+	    @Column(name="main_image")
+	    private String mainImgUrl;
+	    
 	    @ManyToOne(fetch = FetchType.LAZY)
 	    @JoinColumn(name = "category_id", nullable = false)
 	    private Category category;

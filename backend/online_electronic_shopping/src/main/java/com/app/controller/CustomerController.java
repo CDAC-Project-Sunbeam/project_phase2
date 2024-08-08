@@ -62,6 +62,7 @@ public class CustomerController {
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateUser(@RequestBody CustomerUpdateDTO customer ,@PathVariable Long id){
 		System.out.println("in add new user"+customer);
+		
 		try {
 			return ResponseEntity.status(HttpStatus.CREATED).body(customerService.updateCustomer(customer,id));
 		}

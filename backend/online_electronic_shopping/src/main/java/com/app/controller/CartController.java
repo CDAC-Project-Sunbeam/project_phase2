@@ -11,21 +11,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.dto.AddCartItemRequestDTO;
 import com.app.dto.ApiResponse;
-import com.app.dto.SellerDTO;
-import com.app.service.WishlistService;
+import com.app.service.CartService;
+
 
 @RestController
-@RequestMapping("/wishlist")
-public class WishlistController {
+@RequestMapping("/cart")
+public class CartController {
 	@Autowired
-	WishlistService wishlistService;
+	CartService cartService;
 	
-	@PostMapping("/{customerId}/{productId}")
-	public ResponseEntity<?> addNewItem(@PathVariable Long customerId,@PathVariable Long productId){
-		System.out.println("in add new item");
+	@PostMapping()
+	public ResponseEntity<?> addNewItem(@RequestBody AddCartItemRequestDTO addItemDto){
+		System.out.println("in add new item"+addItemDto);
 		try {
-			return ResponseEntity.status(HttpStatus.CREATED).body(wishlistService.addNewItem(customerId, productId));
+			return ResponseEntity.status(HttpStatus.CREATED).body(cartService.addNewItem(addItemDto.getCustomerId(),addItemDto.getProductId(),addItemDto.getQuantity()));
 		}
 		catch(RuntimeException e){
 			System.out.println("error"+e);
@@ -35,9 +36,9 @@ public class WishlistController {
 	}
 	@GetMapping("/{customerId}")
 	public ResponseEntity<?> getAllProducts(@PathVariable Long customerId){
-		System.out.println("in get all products");
+		System.out.println("in get all products in cart");
 		try {
-			return ResponseEntity.status(HttpStatus.CREATED).body(wishlistService.getWishlistProducts(customerId));
+			return ResponseEntity.status(HttpStatus.CREATED).body(cartService.getCartProducts(customerId));
 		}
 		catch(RuntimeException e){
 			System.out.println("error"+e);
@@ -46,10 +47,10 @@ public class WishlistController {
 		
 	}
 	@DeleteMapping("/{customerId}/{productId}")
-	public ResponseEntity<?> getAllProducts(@PathVariable Long customerId,@PathVariable Long productId){
+	public ResponseEntity<?> deleteProduct(@PathVariable Long customerId,@PathVariable Long productId){
 		System.out.println("in remove product");
 		try {
-			return ResponseEntity.status(HttpStatus.OK).body(wishlistService.removeProduct(productId, customerId));
+			return ResponseEntity.status(HttpStatus.OK).body(cartService.removeProduct(productId, customerId));
 		}
 		catch(RuntimeException e){
 			System.out.println("error"+e);
