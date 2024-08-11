@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import '../css/Login.css'; // Ensure you have this CSS file for additional styles
 
 function LoginUser() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
@@ -14,8 +14,8 @@ function LoginUser() {
   const onLogin = async () => {
     try {
       
-      const result = await login(username, password);
-      if (result && result.token) {
+      const result = await login(email, password);
+      if (result ) {
         const { token, data: name } = result;
 
         sessionStorage.setItem('token', token);
@@ -44,10 +44,10 @@ function LoginUser() {
             <h2 className="text-center mb-4">Login</h2>
             <div className="form">
               <div className="mb-3">
-                <label htmlFor="username" className="form-label">Username</label>
+                <label htmlFor="email" className="form-label">Email</label>
                 <input
-                  id="username"
-                  onChange={(e) => setUsername(e.target.value)}
+                  id="email"
+                  onChange={(e) => setEmail(e.target.value)}
                   type='email'
                   className='form-control'
                   placeholder='Enter your email'
@@ -65,7 +65,9 @@ function LoginUser() {
               </div>
               <div className="mb-3 text-center">
                 <div className="mb-2">
-                  Don't have an account yet? <Link to='/register'>Register here</Link>
+                  Don't have an account yet? <Link to='/registerSeller'>Register as Seller</Link>
+                  Don't have an account yet? <Link to='/registerCustomer'>Register as Customer</Link>
+
                 </div>
                 {/* <button onClick={onLogin} className='btn btn-success w-100'>
                   Login

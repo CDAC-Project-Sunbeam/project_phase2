@@ -11,7 +11,9 @@ import com.app.dao.ProductDao;
 import com.app.dao.SellerDao;
 import com.app.dto.ProductRequestDTO;
 import com.app.dto.ProductResponseDTO;
+import com.app.dto.ProductUpdateDTO;
 import com.app.entities.Category;
+import com.app.entities.Customer;
 import com.app.entities.Product;
 import com.app.entities.Seller;
 
@@ -50,6 +52,43 @@ public class ProductServiceImpl implements ProductService {
 		productResponseDto.setCategoryName(category.getName());
 		productResponseDto.setSellerBusinessName(seller.getBusinessName());
 		return productResponseDto;
+	}
+	@Override
+	public String deleteProductById(Long productId,Long sellerId,Long categoryId) {
+		
+		  System.out.println("Attempting to delete product with ID: " + productId);
+		    System.out.println("Seller ID: " + sellerId);
+		    System.out.println("Category ID: " + categoryId);
+		Product product = productDao.findById(productId).orElseThrow(()-> new RuntimeException("Product not found"));
+		Seller seller = sellerDao.findById(sellerId).orElseThrow(()-> new RuntimeException("seller not found"));
+		Category category = categoryDao.findById(categoryId).orElseThrow(()-> new RuntimeException("category not found"));
+
+		if(product.getSeller().getId().equals(seller.getId()) &&product.getCategory().getCategoryId().equals(category.getCategoryId())){
+		productDao.deleteById(productId);
+		
+		}
+		return "Product deleted";
+		
+		
+	}
+	@Override
+	public String updateProduct(ProductUpdateDTO product, Long id) {
+	if (productDao.existsById(id)) {
+			
+			Product product1=productDao.findById(id).orElseThrow();
+			product1.setName(product.getName());
+			product1.setDescription(product.getDescription());
+			product1.setPrice(product.getPrice());
+			product1.setStockQuantity(product.getStockQuantity());
+			product1.setDiscount(product.getDiscount());
+			product1.setBrandName(product.getBrandName());
+			product1.setMainImgUrl(product.getMainImgUrl());
+			Product updatedProduct = productDao.save(product1);
+			System.out.println(product1);
+			return "product updated.....";
+		}
+ 
+			return "not updated";
 	}
 	
 }

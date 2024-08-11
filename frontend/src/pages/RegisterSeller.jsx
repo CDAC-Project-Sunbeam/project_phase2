@@ -1,28 +1,30 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
+import { registerSeller } from "../services/user"
 
-function Register(){
-    const [Name,SetName] = useState('')
-    const [Username, setUsername] = useState('')
+function RegisterSeller(){
+    const [firstName,SetFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [address, setAddress] = useState('')
-    const [mobile, setMobile] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
+    const [dob, setDob] = useState('')
+    const [bussinessName, setBussinessName] = useState('')
+    const [taxId, setTaxId] = useState('')
     
 
     // get the navigation hook
     const navigate = useNavigate()
 
-    const onRegister = () => {
-        if(Name.length == 0) {
-            toast.error('Hey! Enter your name')
+    const onRegisterSeller = async () => {
+        if(firstName.length == 0) {
+            toast.error('Hey! Enter your firstname')
 
         }
-      else if (Username.length == 0){
-            toast.error('Enter correct  username')
-        }
+     
         else if (email.length == 0){
             toast.error('Hey! Enter your email')
         }
@@ -35,7 +37,7 @@ function Register(){
         else if (password != confirmPassword){
             toast.error('password does not match!')
         }
-       else if (mobile.length == 0 && mobile.length >10){
+       else if (phoneNumber.length == 0 && phoneNumber.length >10){
             toast.error('Enter correct mobile no')
         }
         else if (address.length == 0){
@@ -45,7 +47,8 @@ function Register(){
             // call register api, check the status
             // if success back to login screen
             //dynamic navigation
-            toast.success('Successfully registered a new user')
+            const result = await registerSeller(firstName,lastName,password,phoneNumber,email,dob,bussinessName,taxId );
+            toast.success('Successfully registered a new seller')
             navigate('/login')
         }
         
@@ -59,15 +62,16 @@ function Register(){
             <div className="col">
                 <div className="form">
                 <div className="mb-3">
-                        <label htmlFor="">Name</label>
+                        <label htmlFor="">First Name</label>
                         <input 
-                        onChange={(e)=>SetName(e.target.value)}
+                        onChange={(e)=>SetFirstName(e.target.value)}
                         type="text" className="form-control"/>
                     </div>
+                    
                     <div className="mb-3">
-                        <label htmlFor="">User Name</label>
+                        <label htmlFor="">Last Name</label>
                         <input
-                         onChange={(e)=>setUsername(e.target.value)}
+                         onChange={(e)=>setLastName(e.target.value)}
                          type="text" className="form-control"/>
                     </div>
                     <div className="mb-3">
@@ -91,7 +95,7 @@ function Register(){
                     <div className="mb-3">
                         <label htmlFor="">Mobile No</label>
                         <input 
-                        onChange={(e)=>setMobile(e.target.value)}
+                        onChange={(e)=>setPhoneNumber(e.target.value)}
                         type="Number" className="form-control"/>
                     </div><div className="mb-3">
                         <label htmlFor="">Address</label>
@@ -100,14 +104,33 @@ function Register(){
                         type="text" className="form-control"/>
                     </div>
                     <div className="mb-3">
+                        <label htmlFor="">Bussiness Name</label>
+                        <input 
+                        onChange={(e)=>setBussinessName(e.target.value)}
+                        type="text" className="form-control"/>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="">Tax ID</label>
+                        <input 
+                        onChange={(e)=>setTaxId(e.target.value)}
+                        type="number" className="form-control"/>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="">Birthdate</label>
+                        <input 
+                        onChange={(e)=>setDob(e.target.value)}
+                        type="date" className="form-control"/>
+                    </div>
+                    <div className="mb-3">
                         <div>Already have an account? <Link to='/login'>Login here</Link></div>
                         <br />  
                         <br />
                         {/* <button onClick={onRegister} className="btn btn-success mt-2">Register</button> */}
-                        <button onClick={onRegister} className=' button'>
+                       
+              <button onClick={onRegisterSeller} className=' button'>
                 <span class="transition"></span>
                 <span class="gradient"></span>
-                <span class="label">REGISTER</span>
+                <span class="label">REGISTER AS SELLER</span>
               </button>
                     </div>
                 </div>
@@ -119,4 +142,4 @@ function Register(){
     )
 }
 
-export default Register
+export default RegisterSeller

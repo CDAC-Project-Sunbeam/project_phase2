@@ -1,32 +1,51 @@
 import axios from 'axios'
-//import config from '../config'
 
-// export async function register(firstName, lastName, email, phone, password) {
-//   // body parameters
-//   const body = {
-//     firstName,
-//     lastName,
-//     email,
-//     phone,
-//     password,
-//   }
-
-//   // make API call
-//   const response = await axios.post(`${config.url}/user/register`, body)
-
-//   // read JSON data (response)
-//   return response.data
-// }
-
-export async function login(username, password) {
+export async function registerCustomer(firstName, lastName, email, phoneNumber, password,dob) {
   // body parameters
   const body = {
-    username,
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    password,
+    dob,
+  }
+
+  // make API call
+  const response = await axios.post(`http://localhost:8080/customer`, body)
+
+  // read JSON data (response)
+  return response.data
+}
+export async function registerSeller(firstName, lastName, email, phoneNumber, password,dob,bussinessName,taxId) {
+  // body parameters
+  const body = {
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    password,
+    dob,
+    taxId,
+    bussinessName,
+  }
+
+  // make API call
+  const response = await axios.post(`http://localhost:8080/seller`, body)
+
+  // read JSON data (response)
+  return response.data
+}
+
+export async function login(email, password) {
+  // body parameters
+  const body = {
+    email,
     password,
   }
 
   // make API call
-  const response = await axios.post(`https://fakestoreapi.com/auth/login`, body)
+  const response = await axios.post(`http://localhost:8080/user/signin`, body)
 
   // read JSON data (response)
   return response.data
