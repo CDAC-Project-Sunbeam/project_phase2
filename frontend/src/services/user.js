@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export async function registerCustomer(firstName, lastName, email, phoneNumber, password,dob) {
+export async function registerCustomer(firstName, lastName, password, phoneNumber, email,dob) {
   // body parameters
   const body = {
     firstName,
@@ -17,7 +17,7 @@ export async function registerCustomer(firstName, lastName, email, phoneNumber, 
   // read JSON data (response)
   return response.data
 }
-export async function registerSeller(firstName, lastName, email, phoneNumber, password,dob,bussinessName,taxId) {
+export async function registerSeller(firstName, lastName, password, phoneNumber,email,dob,bussinessName,taxId) {
   // body parameters
   const body = {
     firstName,
