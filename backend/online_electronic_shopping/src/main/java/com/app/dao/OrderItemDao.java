@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.app.entities.OrderItem;
 import com.app.entities.Seller;
 
-public interface SellerDao extends JpaRepository<Seller, Long>{
-	 
-
+public interface OrderItemDao extends JpaRepository<OrderItem, Long>{
+	List<OrderItem> findBySeller(Seller seller);
 }
