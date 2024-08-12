@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,6 +35,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/product")
+@CrossOrigin(origins="http://localhost:3000")
 public class ProductController {
 	@Autowired
 	ProductService productService;
@@ -52,6 +54,16 @@ public class ProductController {
 		}
 	}
 
+	@GetMapping("/search")
+	public ResponseEntity<?> searchProducts(@RequestParam String query) {
+		try {
+
+			return ResponseEntity.status(HttpStatus.CREATED).body(productService.searchProducts(query));
+		} catch (RuntimeException e) {
+			System.out.println("error" + e);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(e.getMessage()));
+		}
+	}
 	@GetMapping("/all")
 	public ResponseEntity<List<ProductResponseDTO>> getAllProducts() {
 		List<ProductResponseDTO> products = productService.getAllProducts();

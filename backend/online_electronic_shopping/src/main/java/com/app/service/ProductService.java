@@ -16,5 +16,6 @@ public interface ProductService {
 	public String deleteProductById(Long productId,Long sellerId,Long categoryId);
 	public String updateProduct(ProductUpdateDTO product , Long id);
 	public List<ProductResponseDTO> getAllProducts();
+	public List<ProductResponseDTO> searchProducts(String searchTerm);
 
 }

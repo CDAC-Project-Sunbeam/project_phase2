@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -125,5 +126,15 @@ public class ProductServiceImpl implements ProductService {
  
 			return "not updated";
 	}
+	
+	public List<ProductResponseDTO> searchProducts(String searchTerm) {
+        List<Product> products=productDao.searchProducts(searchTerm);
+        List<ProductResponseDTO> productDtoList=new ArrayList<ProductResponseDTO>();
+        for (Product product : products) {
+        	ProductResponseDTO productDto=modelMapper.map(product, ProductResponseDTO.class);
+        	productDtoList.add(productDto);
+		}
+        return productDtoList;
+    }
 	
 }
