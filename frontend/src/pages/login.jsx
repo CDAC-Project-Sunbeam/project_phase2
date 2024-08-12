@@ -18,9 +18,10 @@ function LoginUser() {
       if (result ) {
         const { token, data: name } = result;
 
-        sessionStorage.setItem('token', token);
+        
         sessionStorage.setItem('name', name);
         if(result.role=="SELLER"){
+          sessionStorage.setItem("sellerid", result.id);
           toast.success("Login successful");
           navigate("/SellerDashboard");
         }

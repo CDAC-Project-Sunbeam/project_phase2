@@ -13,6 +13,6 @@ import com.app.entities.Seller;
 public interface OrderService {
 	public String createOrder(OrderRequestDTO orderRequestDTO,Long customerId);
     public List<OrderItemResponseDTO> getOrdersByCustomer(Long customerId);
-	//public List<OrderItem> getOrderItemsBySeller(Seller seller);
+    public List<OrderItemResponseDTO> getOrderItemsBySeller(Long sellerId);
 	public Payment addPayment(Payment payment);
 }

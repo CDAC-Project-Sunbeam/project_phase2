@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function SellerDashboard() {
 const navigate = useNavigate();
-const sellerId = 1; // Example sellerId, replace with dynamic value if needed
+const sellerId = sessionStorage.getItem('sellerid'); // Example sellerId, replace with dynamic value if needed
 
 const handleAddProductClick = () => {
   navigate(`/add-product/${sellerId}`);
