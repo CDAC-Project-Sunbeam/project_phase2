@@ -20,17 +20,18 @@ function LoginUser() {
 
         
         sessionStorage.setItem('name', name);
-        if(result.role=="SELLER"){
+        if(result.role==="SELLER"){
           sessionStorage.setItem("sellerid", result.id);
           toast.success("Login successful");
           navigate("/SellerDashboard");
         }
-        else if(result.role=="ADMIN"){
+        else if(result.role==="ADMIN"){
           toast.success("admin logged in succesfully")
           navigate("/AdminDashboardPage");
         }
-        //toast.success("Login successful");
-        //navigate('/Home');
+        else if(result.role==="CUSTOMER")
+          toast.success("CUSTOMER logged in succesfully")
+        navigate("/home");
       } else {
         toast.error('Invalid email or password');
       }
