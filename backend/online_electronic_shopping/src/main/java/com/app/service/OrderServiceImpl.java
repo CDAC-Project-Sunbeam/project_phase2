@@ -100,11 +100,23 @@ public class OrderServiceImpl implements OrderService {
 	        return orderDtoItems;
 	    }
 
-//	    public List<OrderItem> getOrderItemsBySeller(Long sellerId) {
-//	    	
-//	    	
-//	        return orderItemDao.findBySeller(seller);
-//	    }
+	    public List<OrderItemResponseDTO> getOrderItemsBySeller(Long sellerId) {
+	    	List<OrderItem> orderItems=orderItemDao.findOrdersBySellerId(sellerId);
+	    	List<OrderItemResponseDTO> orderDtoItems=new ArrayList<OrderItemResponseDTO>();
+	    	for (OrderItem orderItem : orderItems) {
+	    		OrderItemResponseDTO orderItemResponseDto=new OrderItemResponseDTO();
+				orderItemResponseDto.setAmount(orderItem.getPrice());
+				orderItemResponseDto.setProductId(orderItem.getProduct().getId());
+				orderItemResponseDto.setProductImgUrl(orderItem.getProduct().getMainImgUrl());
+				orderItemResponseDto.setProductName(orderItem.getProduct().getName());
+				orderItemResponseDto.setQuantity(orderItem.getQuantity());
+				orderItemResponseDto.setStatus(orderItem.getOrder().getStatus().toString());
+				orderItemResponseDto.setShippingAddress(modelMapper.map(orderItem.getOrder().getShippingAddress(), AddressDTO.class));
+				orderDtoItems.add(orderItemResponseDto);
+			}
+	    	
+	        return orderDtoItems;
+	    }
 
 	    public Payment addPayment(Payment payment) {
 	        return paymentDao.save(payment);

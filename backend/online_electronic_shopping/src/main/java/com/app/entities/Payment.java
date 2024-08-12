@@ -31,5 +31,5 @@ public class Payment {
     private String paymentMethod;
     private String paymentStatus;
     private double amount;
-
+    
 }

@@ -43,10 +43,6 @@ public class OrderController {
 	    
 	    @GetMapping("/customer/{customerId}")
 	    public ResponseEntity<?> getOrdersByCustomer(@PathVariable Long customerId) {
-//	        Customer customer = new Customer(); // retrieve customer entity based on customerId
-//	        customer.setId(customerId);
-//	        List<Order> orders = orderService.getOrdersByCustomer(customer);
-	//        return new ResponseEntity<>(orders, HttpStatus.OK);
 	        try {
 				return ResponseEntity.status(HttpStatus.OK).body(orderService.getOrdersByCustomer(customerId));
 			}
@@ -55,14 +51,17 @@ public class OrderController {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage()));
 			}
 	    }
+	    @GetMapping("/seller/{sellerId}")
+	    public ResponseEntity<?> getOrdersBySellers(@PathVariable Long sellerId) {
+	        try {
+				return ResponseEntity.status(HttpStatus.OK).body(orderService.getOrderItemsBySeller(sellerId));
+			}
+			catch(RuntimeException e){
+				System.out.println("error"+e);
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage()));
+			}
+	    }
 	    
-//	    @GetMapping("/seller/{sellerId}/items")
-//	    public ResponseEntity<List<OrderItem>> getOrderItemsBySeller(@PathVariable Long sellerId) {
-//	        Seller seller = new Seller(); // retrieve seller entity based on sellerId
-//	        seller.setId(sellerId);
-//	        List<OrderItem> orderItems = orderService.getOrderItemsBySeller(seller);
-//	        return new ResponseEntity<>(orderItems, HttpStatus.OK);
-//	    }
 
 	    @PostMapping("/{orderId}/payment")
 	    public ResponseEntity<Payment> addPayment(@PathVariable Long orderId, @RequestBody Payment payment) {
