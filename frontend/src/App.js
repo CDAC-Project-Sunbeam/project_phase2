@@ -20,7 +20,7 @@ import AddProperty from './pages/AddProperty';
 import UserProfilePage from './pages/UserProfile';
 import UserProfileForm from './pages/UserProfileForm';
 import SellerDashboard from './pages/SellerDashboard';
-import AddProductPage from './pages/AddProductPage'
+import AddProductPage from './pages/AddProductPage';
 function App() {
   return (
     <div className="container">
@@ -31,7 +31,7 @@ function App() {
         <Route path="/registerSeller" element={<RegisterSeller />} />
         <Route path="/registerCustomer" element={<RegisterCustomer />} />
         <Route path="/Contact" element={<Contact />} />
-        <Route path="/AddProduct" element={<AddProperty />} />
+        {/* <Route path="/AddProduct" element={<AddProperty />} /> */}
         <Route path="/UserProfile" element={<UserProfilePage />} />
         <Route path="/UserProfileForm" element={<UserProfileForm />} />
         <Route path="/SellerDashboard" element={<SellerDashboard />} />
@@ -40,7 +40,7 @@ function App() {
         <Route path="/AdminDashboardPage/viewCustomers" element={<ViewCustomers />} />
         <Route path="/AdminDashboardPage/viewSellers" element={<ViewSellers />} />
 
-        <Route path="/add-product/:sellerId" element={<AddProductPage />} />
+        <Route path="add-product/:sellerId" element={<AddProductPage />} />
         <Route
           path="/product-details/:propertyId"
           element={<ProductDetails />}

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { createProduct } from "../services/products";
 import { toast } from "react-toastify";
 const AddProductPage = () => {
+  
   const { sellerId } = useParams();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -40,10 +41,11 @@ const AddProductPage = () => {
   };
 
   return (
-    <div>
-      <h1>Add New Product</h1>
+    
+    <div >
+      <h1 className='mb-4'>Add New Product</h1>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className='form-group mb-3'>
           <label>Name:</label>
           <input
             type="text"
@@ -52,7 +54,7 @@ const AddProductPage = () => {
             required
           />
         </div>
-        <div>
+        <div className='form-group mb-3'>
           <label>Description:</label>
           <textarea
             value={description}
@@ -60,7 +62,7 @@ const AddProductPage = () => {
             required
           />
         </div>
-        <div>
+        <div className='form-group mb-3'>
           <label>Price:</label>
           <input
             type="number"
@@ -70,7 +72,7 @@ const AddProductPage = () => {
             required
           />
         </div>
-        <div>
+        <div className='form-group mb-3'>
           <label>Brand Name:</label>
           <input
             type="text"
@@ -79,7 +81,7 @@ const AddProductPage = () => {
             required
           />
         </div>
-        <div>
+        <div className='form-group mb-3'>
           <label>Stock Quantity:</label>
           <input
             type="number"
@@ -88,7 +90,7 @@ const AddProductPage = () => {
             required
           />
         </div>
-        <div>
+        <div className='form-group mb-3'>
           <label>Discount:</label>
           <input
             type="number"
@@ -98,7 +100,7 @@ const AddProductPage = () => {
             required
           />
         </div>
-        <div>
+        <div className='form-group mb-3'>
           <label>Main Image:</label>
           <input type="file" onChange={handleFileChange} />
         </div>

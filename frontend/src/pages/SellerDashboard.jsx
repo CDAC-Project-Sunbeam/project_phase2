@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import Navbar from '../components/Navbar';
 
 
 function SellerDashboard() {
@@ -12,8 +13,12 @@ const handleAddProductClick = () => {
 };
 
 return (
+
+
+  
   <div style={{ textAlign: "center", padding: "50px 0" }}>
-    <h1 style={{ marginBottom: "50px" }}>SELLER DASHBOARD</h1>
+    <Navbar />
+    <h1 style={{ marginBottom: "50px", marginTop:100}}>SELLER DASHBOARD</h1>
 
     <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
       <button
