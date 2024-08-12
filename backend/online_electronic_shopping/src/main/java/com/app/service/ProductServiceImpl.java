@@ -1,10 +1,21 @@
 package com.app.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dao.CategoryDao;
 import com.app.dao.ProductDao;
@@ -23,7 +34,8 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductDao productDao;
 	
-	
+	@Value("${image.upload.dir}")
+    private String uploadDir;
 	@Autowired
 	CategoryDao categoryDao;
 	@Autowired
@@ -31,28 +43,40 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	SellerDao sellerDao;
-	@Override
-	public ProductResponseDTO addProduct(ProductRequestDTO productDto,Long sellerId,Long categoryId) {
-		Product product =modelMapper.map(productDto, Product.class);
-		System.out.println(product);
-		Seller seller=sellerDao.findById(sellerId).orElseThrow();
-		
-		
-		Category category=categoryDao.findById(categoryId).orElseThrow();
-		
-		
-		category.addNewProduct(product);
-		System.out.println(product);
-		product.setSeller(seller);
-		
-		System.out.println(product);
-		productDao.save(product);
-		System.out.println(product);
-		ProductResponseDTO productResponseDto= modelMapper.map(product, ProductResponseDTO.class);
-		productResponseDto.setCategoryName(category.getName());
-		productResponseDto.setSellerBusinessName(seller.getBusinessName());
-		return productResponseDto;
-	}
+	
+	
+	public ProductResponseDTO addProduct(ProductRequestDTO productDto, Long sellerId, Long categoryId) throws IOException {
+        Product product = new Product();
+        product.setName(productDto.getName());
+        product.setDescription(productDto.getDescription());
+        product.setPrice(productDto.getPrice());
+        product.setBrandName(productDto.getBrandName());
+        product.setStockQuantity(productDto.getStockQuantity());
+        product.setDiscount(productDto.getDiscount());
+
+        Seller seller = sellerDao.findById(sellerId).orElseThrow();
+        Category category = categoryDao.findById(categoryId).orElseThrow();
+
+        category.addNewProduct(product);
+        product.setSeller(seller);
+
+        // Handle file upload for the main image
+        MultipartFile file = productDto.getFile();
+        if (file != null && !file.isEmpty()) {
+            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+            Path filePath = Paths.get(uploadDir, fileName).toAbsolutePath().normalize();
+            Files.createDirectories(filePath.getParent()); // Ensure the directory exists
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+            product.setMainImgUrl(fileName); // Set the file path in the product entity
+        }
+
+        productDao.save(product);
+
+        ProductResponseDTO productResponseDto = modelMapper.map(product, ProductResponseDTO.class);
+        productResponseDto.setCategoryName(category.getName());
+        productResponseDto.setSellerBusinessName(seller.getBusinessName());
+        return productResponseDto;
+    }
 	@Override
 	public String deleteProductById(Long productId,Long sellerId,Long categoryId) {
 		
@@ -71,6 +95,17 @@ public class ProductServiceImpl implements ProductService {
 		
 		
 	}
+	 @Override
+	    public List<ProductResponseDTO> getAllProducts() {
+	        List<Product> products = productDao.findAll();
+	        return products.stream()
+	                       .map(product -> {
+	                           ProductResponseDTO dto = modelMapper.map(product, ProductResponseDTO.class);
+	                           dto.setCategoryName(product.getCategory().getName());
+	                           return dto;
+	                       })
+	                       .collect(Collectors.toList());
+	    }
 	@Override
 	public String updateProduct(ProductUpdateDTO product, Long id) {
 	if (productDao.existsById(id)) {

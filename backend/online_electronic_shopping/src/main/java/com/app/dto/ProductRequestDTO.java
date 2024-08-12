@@ -3,6 +3,7 @@ package com.app.dto;
 import javax.persistence.Column;
 
 import org.hibernate.internal.build.AllowPrintStacktrace;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,5 +29,7 @@ public class ProductRequestDTO {
     private int stockQuantity;
     
     private double discount;
+    
+    private MultipartFile file;
     
 }

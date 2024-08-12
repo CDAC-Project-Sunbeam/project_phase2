@@ -20,9 +20,16 @@ function LoginUser() {
 
         sessionStorage.setItem('token', token);
         sessionStorage.setItem('name', name);
-
-        toast.success("Login successful");
-        navigate('/Home');
+        if(result.role=="SELLER"){
+          toast.success("Login successful");
+          navigate("/SellerDashboard");
+        }
+        else if(result.role=="ADMIN"){
+          toast.success("admin logged in succesfully")
+          navigate("/AdminDashboardPage");
+        }
+        //toast.success("Login successful");
+        //navigate('/Home');
       } else {
         toast.error('Invalid email or password');
       }
