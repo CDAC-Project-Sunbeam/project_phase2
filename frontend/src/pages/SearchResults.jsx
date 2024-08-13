@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import BarNav from "../components/BarNav";
 import "../css/SearchResults.css"; // Ensure you have a CSS file for styling
 
 function SearchResults() {
@@ -13,7 +14,10 @@ function SearchResults() {
 
   return (
     <div className="container">
-      <h1>Search Results</h1>
+      <div>
+        <BarNav />
+      </div>
+      <h1>Results</h1>
       {products.length > 0 ? (
         <div className="product-grid">
           {products.map((product) => (

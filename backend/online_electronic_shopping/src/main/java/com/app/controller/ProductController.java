@@ -107,6 +107,17 @@ public class ProductController {
 		}
 	}
 	
+	@GetMapping("/getProductsByCategory")
+	public ResponseEntity<?> getProductsByCategory(@RequestParam Long categoryId) {
+		try {
+
+			return ResponseEntity.status(HttpStatus.CREATED).body(productService.findProductsByCategory(categoryId));
+		} catch (RuntimeException e) {
+			System.out.println("error" + e);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(e.getMessage()));
+		}
+	}
+	
 	
 	
 	

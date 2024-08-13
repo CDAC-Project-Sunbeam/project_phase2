@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { getProductDetails, addProductToCart } from '../services/products'; // Ensure correct path
+import { Link, useParams,useNavigate } from 'react-router-dom'
+import { getProductDetails,addProductToCart } from '../services/products'
+//import { toast } from 'react-toastify'
+import { useEffect, useState } from 'react'
+import BarNav from "../components/BarNav";
+//import config from '../config'
 
 function ProductDetails() {
   const { productId } = useParams();
@@ -40,6 +43,10 @@ function ProductDetails() {
 
   return (
     <div>
+      <div>
+        <BarNav />
+      </div>
+      <br></br>
       {details && (
         <div className="mt-5">
           <h3 style={{ fontSize: 26 }}>
