@@ -23,6 +23,7 @@ import SellerDashboard from './pages/SellerDashboard';
 import AddProductPage from './pages/AddProductPage';
 import SearchResults from './pages/SearchResults';
 import PlaceOrder from './pages/PlaceOrder';
+import OrderConfirmation from "./pages/OrderConfirmation";
 function App() {
   return (
     <div className="container">
@@ -48,18 +49,15 @@ function App() {
           path="/AdminDashboardPage/viewSellers"
           element={<ViewSellers />}
         />
-        <Route
-          path="/search-results"
-          element={<SearchResults />}
-        />
+        <Route path="/search-results" element={<SearchResults />} />
         <Route path="add-product/:sellerId" element={<AddProductPage />} />
         <Route
           path="/product-details/:productId"
           element={<ProductDetails />}
         />
         <Route path="/place-order" element={<PlaceOrder />} />
+        <Route path="/order-confirmation" element={<OrderConfirmation />} />
       </Routes>
-      
 
       <ToastContainer />
     </div>

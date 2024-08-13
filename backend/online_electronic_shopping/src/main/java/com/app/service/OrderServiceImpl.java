@@ -70,6 +70,9 @@ public class OrderServiceImpl implements OrderService {
 	    	for (OrderItemRequestDTO orderDtoItem : orderRequestDTO.getOrderItemRequestDTO()) {
 				OrderItem orderItem= modelMapper.map(orderDtoItem, OrderItem.class);
 				Product product=productDao.findById(orderDtoItem.getProductId()).orElseThrow();
+				double p=(orderItem.getPrice()*product.getDiscount())/100;
+				orderItem.setPrice(orderItem.getPrice()-p);
+				
 				orderItem.setProduct(product);
 				orderItem.setOrder(order);
 				orderItem.setSeller(product.getSeller());

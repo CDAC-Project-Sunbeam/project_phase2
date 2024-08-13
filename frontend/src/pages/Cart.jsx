@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { getCartProducts } from '../services/products'; // Ensure correct path
-import { useNavigate } from 'react-router-dom'; // For navigation
+import React, { useEffect, useState } from "react";
+import { getCartProducts } from "../services/products"; 
+import { useNavigate } from "react-router-dom"; 
+import axios from "axios"; 
+import { toast } from "react-toastify"; 
+import BarNav from "../components/BarNav";
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
-  const customerId = sessionStorage.getItem('customerid');
+  const customerId = sessionStorage.getItem("customerid");
   const navigate = useNavigate(); // Initialize navigate
 
   // Function to load cart products
@@ -19,7 +22,7 @@ function Cart() {
       }));
       setCartItems(productsWithQuantityAndDiscount);
     } catch (error) {
-      console.error('Failed to fetch cart products:', error);
+      console.error("Failed to fetch cart products:", error);
     }
   };
 
@@ -27,11 +30,25 @@ function Cart() {
   const handleQuantityChange = (productId, newQuantity) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === productId
+        item.productId === productId
           ? { ...item, quantity: parseInt(newQuantity, 10) }
           : item
       )
     );
+  };
+
+  // Function to handle removing a product from the cart
+  const handleRemoveProduct = async (customerId, productId) => {
+    try {
+      await axios.delete(`http://localhost:8080/cart/${customerId}/${productId}`);
+      toast.success("Product removed from cart");
+      setCartItems((prevItems) =>
+        prevItems.filter((item) => item.id !== productId)
+      );
+    } catch (error) {
+      toast.error("Failed to remove product from cart");
+      console.error("Error during product removal:", error);
+    }
   };
 
   // Function to handle placing the order
@@ -40,20 +57,27 @@ function Cart() {
       const discountedPrice = item.price * (1 - item.discount / 100);
       return total + discountedPrice * item.quantity;
     }, 0);
-    navigate('/place-order', { state: { cartItems, totalAmount } }); // Pass cartItems and totalAmount to the place order page
+    navigate("/place-order", { state: { cartItems, totalAmount } }); // Pass cartItems and totalAmount to the place order page
   };
 
   useEffect(() => {
     if (customerId) {
       loadCartProducts(customerId);
     } else {
-      console.error('No customer ID found in session storage');
+      console.error("No customer ID found in session storage");
     }
   }, [customerId]);
 
   return (
     <div>
-      <h2>Your Cart</h2>
+      <div>
+        <BarNav />
+      </div>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <h2 >Your Cart</h2>
       {cartItems.length > 0 ? (
         <div>
           {cartItems.map((item) => (
@@ -61,7 +85,7 @@ function Cart() {
               <h3>{item.brandName}</h3>
               <h3>{item.name}</h3>
               <img
-                style={{ height: 100,width:100 }}
+                style={{ height: 100, width: 100 }}
                 src={`http://localhost:8080/${item.mainImgUrl}`}
                 alt={item.name}
                 className="product-image"
@@ -71,12 +95,13 @@ function Cart() {
                 type="number"
                 value={item.quantity}
                 min="1"
-                onChange={(e) =>
-                  handleQuantityChange(item.id, e.target.value)
-                }
+                onChange={(e) => handleQuantityChange(item.id, e.target.value)}
               />
               <p>Price: {item.price}</p>
               <p>Discount: {item.discount}%</p>
+              <button onClick={() => handleRemoveProduct(customerId, item.id)}>
+                Remove
+              </button>
               <hr />
             </div>
           ))}
