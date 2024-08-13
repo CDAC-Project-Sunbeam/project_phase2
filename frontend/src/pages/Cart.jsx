@@ -30,7 +30,7 @@ function Cart() {
   const handleQuantityChange = (productId, newQuantity) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.productId === productId
+        item.id === productId
           ? { ...item, quantity: parseInt(newQuantity, 10) }
           : item
       )
@@ -81,7 +81,7 @@ function Cart() {
       {cartItems.length > 0 ? (
         <div>
           {cartItems.map((item) => (
-            <div key={item.productId} className="cart-item">
+            <div key={item.id} className="cart-item">
               <h3>{item.brandName}</h3>
               <h3>{item.name}</h3>
               <img
