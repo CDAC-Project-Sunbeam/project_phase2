@@ -2,15 +2,22 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { FaUserCircle } from "react-icons/fa"; // Importing FaUserCircle icon
 
 function BarNav() {
   const [searchQuery, setSearchQuery] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
+  const [customerId, setCustomerId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const loginStatus = sessionStorage.getItem("loggedIn");
     setLoggedIn(loginStatus === "true");
+
+    if (loginStatus === "true") {
+      const id = sessionStorage.getItem("customerid");
+      setCustomerId(id);
+    }
   }, []);
 
   const handleSearch = async (event) => {
@@ -38,7 +45,7 @@ function BarNav() {
     <div className="container-fluid p-0 fixed-top">
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
-          <Link className="nav-link " aria-current="page" to="/Home">
+          <Link className="nav-link" aria-current="page" to="/Home">
             ELECTRON
           </Link>
           <button
@@ -71,6 +78,11 @@ function BarNav() {
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               {loggedIn ? (
                 <>
+                  <li className="nav-item me-3">
+                    <Link to="/profile">
+                      <FaUserCircle size={30} /> {/* Increase icon size */}
+                    </Link>
+                  </li>
                   <li className="nav-item">
                     <button
                       className="btn btn-outline-danger"
@@ -80,7 +92,7 @@ function BarNav() {
                     </button>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="#">
+                    <a className="nav-link" href="/Wishlist">
                       Wishlist
                     </a>
                   </li>
