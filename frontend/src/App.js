@@ -22,6 +22,7 @@ import UserProfileForm from './pages/UserProfileForm';
 import SellerDashboard from './pages/SellerDashboard';
 import AddProductPage from './pages/AddProductPage';
 import SearchResults from './pages/SearchResults';
+import PlaceOrder from './pages/PlaceOrder';
 function App() {
   return (
     <div className="container">
@@ -56,7 +57,9 @@ function App() {
           path="/product-details/:productId"
           element={<ProductDetails />}
         />
+        <Route path="/place-order" element={<PlaceOrder />} />
       </Routes>
+      
 
       <ToastContainer />
     </div>
