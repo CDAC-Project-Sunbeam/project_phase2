@@ -35,10 +35,11 @@ public class CustomerServiceImpl implements CustomerService {
 		
 	}
 	@Override
-	public Optional<Customer> getCustomerDetails(Long customerid) {
+	public CustomerDTO getCustomerDetails(Long customerid) {
 		// TODO Auto-generated method stub
-			
-		return customerDao.findById(customerid);
+		CustomerDTO customerDto = modelMapper.map(customerDao.findById(customerid).orElseThrow() , CustomerDTO.class);
+		System.out.println(customerDto);
+		return customerDto;
 	}
 	public String addCustomerAddress(Long id,AddressDTO addressDTO) {
 		Address address = modelMapper.map(addressDTO, Address.class);
