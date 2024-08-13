@@ -26,7 +26,7 @@ function ProductDetails() {
 
   // Handle adding product to cart
   const handleAddToCart = async () => {
-    const customerId = sessionStorage.getItem('customerId');
+    const customerId = sessionStorage.getItem('customerid');
     if (!customerId) {
       console.error('Customer ID is not available');
       return;

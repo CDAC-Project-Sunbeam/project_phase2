@@ -26,6 +26,7 @@ function LoginUser() {
           toast.success("Admin logged in successfully");
           navigate("/AdminDashboardPage");
         } else if (result.role === "CUSTOMER") {
+          sessionStorage.setItem("customerid", result.id);
           toast.success("Customer logged in successfully");
           navigate("/home");
         }

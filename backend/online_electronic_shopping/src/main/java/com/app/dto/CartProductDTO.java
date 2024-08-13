@@ -21,9 +21,10 @@ public class CartProductDTO {
     
     private String brandName;
     
-    private Integer quantity;
+   // private Integer quantity;
     
     private String mainImgUrl;
     
+    private double price;
 
 }
