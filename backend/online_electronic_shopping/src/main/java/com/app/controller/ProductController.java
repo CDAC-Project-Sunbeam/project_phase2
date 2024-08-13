@@ -53,7 +53,7 @@ public class ProductController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(e.getMessage()));
 		}
 	}
-
+	
 	@GetMapping("/search")
 	public ResponseEntity<?> searchProducts(@RequestParam String query) {
 		try {
@@ -95,4 +95,23 @@ public class ProductController {
 
 		}
 	}
+	
+	@GetMapping("/getProductById/{productId}")
+	public ResponseEntity<?> getProductbyId(@PathVariable Long productId) {
+		try {
+
+			return ResponseEntity.status(HttpStatus.CREATED).body(productService.getProductBYId(productId));
+		} catch (RuntimeException e) {
+			System.out.println("error" + e);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ApiResponse(e.getMessage()));
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

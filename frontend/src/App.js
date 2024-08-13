@@ -49,7 +49,7 @@ function App() {
         <Route path="/search-results" element={<SearchResults />} />
         <Route path="add-product/:sellerId" element={<AddProductPage />} />
         <Route
-          path="/product-details/:propertyId"
+          path="/product-details/:productId"
           element={<ProductDetails />}
         />
       </Routes>

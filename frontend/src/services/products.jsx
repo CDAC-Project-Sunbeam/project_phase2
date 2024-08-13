@@ -6,7 +6,9 @@ export async function getProducts() {
 }
 
 export async function getProductDetails(id) {
-  const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
+  const response = await axios.get(
+    `http://localhost:8080/product/getProductById/${id}`
+  );
   return response.data;
 }
 

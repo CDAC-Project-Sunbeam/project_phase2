@@ -31,7 +31,7 @@ function LoginUser() {
         }
         else if(result.role==="CUSTOMER")
           toast.success("CUSTOMER logged in succesfully")
-        navigate("/home");
+          navigate("/home");
       } else {
         toast.error('Invalid email or password');
       }

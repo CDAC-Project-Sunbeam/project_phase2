@@ -17,5 +17,6 @@ public interface ProductService {
 	public String updateProduct(ProductUpdateDTO product , Long id);
 	public List<ProductResponseDTO> getAllProducts();
 	public List<ProductResponseDTO> searchProducts(String searchTerm);
+	public ProductResponseDTO getProductBYId(Long id);
 
 }

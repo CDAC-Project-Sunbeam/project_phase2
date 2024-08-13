@@ -137,4 +137,11 @@ public class ProductServiceImpl implements ProductService {
         return productDtoList;
     }
 	
+	public ProductResponseDTO getProductBYId(Long id) {
+	Product product=	productDao.findById(id).orElseThrow();
+	ProductResponseDTO productResponseDTO =  modelMapper.map(product, ProductResponseDTO.class);
+	return productResponseDTO;
+//	return null;
+	}
+	
 }
