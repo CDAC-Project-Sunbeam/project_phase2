@@ -12,7 +12,7 @@ const AddProductPage = () => {
   const [stockQuantity, setStockQuantity] = useState("");
   const [discount, setDiscount] = useState("");
   const [file, setFile] = useState(null);
-  const categoryId = 2; // Example categoryId, replace with dynamic value if needed
+  const categoryId = 1; // Example categoryId, replace with dynamic value if needed
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);

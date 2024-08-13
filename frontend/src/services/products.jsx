@@ -47,3 +47,26 @@ export const createProduct = async (productData, sellerId, categoryId) => {
     throw new Error("Error creating product: " + error.message);
   }
 };
+
+
+
+
+// Function to add product to cart
+export async function addProductToCart(customerId, productId, quantity) {
+  const response = await axios.post('http://localhost:8080/cart', {
+    customerId,
+    productId,
+    quantity,
+  });
+  return response.data;
+}
+
+// Function to get cart products
+export async function getCartProducts(customerId) {
+  const response = await axios.get(`http://localhost:8080/cart/${customerId}`);
+  return response.data;
+}
+
+
+
+

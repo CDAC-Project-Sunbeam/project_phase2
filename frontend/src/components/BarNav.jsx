@@ -115,15 +115,16 @@ function BarNav() {
                 </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+              <Link className="nav-link " aria-current="page" to="/Wishlist">
                   Wishlist
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link " aria-current="page" to="/Cart">
                   Cart
-                </a>
+                </Link>
               </li>
+              
             </ul>
           </div>
         </div>

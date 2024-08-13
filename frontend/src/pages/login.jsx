@@ -31,6 +31,7 @@ function LoginUser() {
         }
         else if(result.role==="CUSTOMER")
           toast.success("CUSTOMER logged in succesfully")
+          sessionStorage.setItem("customerId", result.id);
           navigate("/home");
       } else {
         toast.error('Invalid email or password');
