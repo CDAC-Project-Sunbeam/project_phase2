@@ -118,6 +118,16 @@ public class ProductController {
 		}
 	}
 	
+	 @GetMapping("/seller/{sellerId}")
+	    public ResponseEntity<?> getProductsBySeller(@PathVariable Long sellerId) {
+	        try {
+	            return ResponseEntity.status(HttpStatus.OK).body(productService.getProductsBySeller(sellerId));
+	        } catch (RuntimeException e) {
+	            System.out.println("Error: " + e.getMessage());
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage()));
+	        }
+	    }
+	
 	
 	
 	

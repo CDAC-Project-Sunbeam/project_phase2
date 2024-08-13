@@ -19,5 +19,7 @@ public interface ProductService {
 	public List<ProductResponseDTO> searchProducts(String searchTerm);
 	public ProductResponseDTO getProductBYId(Long id);
 	public List<ProductResponseDTO> findProductsByCategory(Long categoryId);
+	
+	 public List<ProductResponseDTO> getProductsBySeller(Long sellerId);
 
 }

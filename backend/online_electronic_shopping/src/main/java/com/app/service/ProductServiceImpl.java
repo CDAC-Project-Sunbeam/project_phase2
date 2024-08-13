@@ -157,5 +157,20 @@ public class ProductServiceImpl implements ProductService {
 			}
 	        return productDtoList;
 	 }
+	 
+	 public List<ProductResponseDTO> getProductsBySeller(Long sellerId) {
+//		Seller seller=  sellerDao.findById(sellerId).orElseThrow();
+//	Product product=	 productDao.findById(sellerId).orElseThrow();
+		List<Product> productList=  productDao.findProductsBySellerId(sellerId);
+		
+		List<ProductResponseDTO> productList1 = new ArrayList<ProductResponseDTO>();
+		for (Product product : productList) {
+			 ProductResponseDTO list=	modelMapper.map(product, ProductResponseDTO.class);
+			 productList1.add(list);
+		}
+		
+		
+	        return productList1;
+	    }
 	
 }
