@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import { getProductDetails } from '../services/products'
 //import { toast } from 'react-toastify'
 import { useEffect, useState } from 'react'
+import BarNav from "../components/BarNav";
 //import config from '../config'
 
 function ProductDetails() {
@@ -29,6 +30,10 @@ function ProductDetails() {
 
   return (
     <div>
+      <div>
+        <BarNav />
+      </div>
+      <br></br>
       {details && (
         <div className="mt-5">
           <h3 style={{ fontSize: 26 }}>
@@ -36,7 +41,11 @@ function ProductDetails() {
           </h3>
           <hr />
 
-          <img className="mt-2" style={{ height: 300 }} src={`http://localhost:8080/${details.mainImgUrl}`} />
+          <img
+            className="mt-2"
+            style={{ height: 300 }}
+            src={`http://localhost:8080/${details.mainImgUrl}`}
+          />
           <div className="mt-2">
             <h4 className="mt-2"> {details.description}</h4>
           </div>
@@ -47,7 +56,7 @@ function ProductDetails() {
               category:{" "}
               <span style={{ fontWeight: "bold" }}>{details.categoryName}</span>
             </div>
-            <div>rating :{details.discount}% Off</div>
+            <div>offer :{details.discount}% Off</div>
             <hr />
             <div>stock available :{details.stockQuantity}</div>
             <hr />

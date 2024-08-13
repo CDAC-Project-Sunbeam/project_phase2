@@ -140,8 +140,22 @@ public class ProductServiceImpl implements ProductService {
 	public ProductResponseDTO getProductBYId(Long id) {
 	Product product=	productDao.findById(id).orElseThrow();
 	ProductResponseDTO productResponseDTO =  modelMapper.map(product, ProductResponseDTO.class);
+	productResponseDTO.setCategoryName(product.getCategory().getName());
 	return productResponseDTO;
 //	return null;
 	}
+	
+	 public List<ProductResponseDTO> findProductsByCategory(Long categoryId) {
+	        Category category = categoryDao.findById(categoryId)
+	            .orElseThrow(() -> new RuntimeException("Category not found"));
+	        List<Product> products=productDao.findByCategory(category);
+	        List<ProductResponseDTO> productDtoList=new ArrayList<ProductResponseDTO>();
+	        for (Product product : products) {
+	        	ProductResponseDTO productDto=modelMapper.map(product, ProductResponseDTO.class);
+	        	productDto.setCategoryName(product.getCategory().getName());
+	        	productDtoList.add(productDto);
+			}
+	        return productDtoList;
+	 }
 	
 }
