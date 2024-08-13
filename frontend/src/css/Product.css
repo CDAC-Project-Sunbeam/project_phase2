@@ -1,48 +1,70 @@
 .product-card {
-    cursor: pointer;
-    padding: 5px;
-    width: 100%;
-    max-width: 300px;
-    margin: 10px;
-  }
-  
-  .product-card .card {
-    position: relative;
-    height: 400px;
-  }
-  
-  .product-card .card-img-top {
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  .product-card .card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .product-card .card-title {
-    font-size: 1.25rem;
-    margin-bottom: 10px;
-  }
-  
-  .product-card .card-text {
-    flex-grow: 1;
-    margin-bottom: 10px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  
-  .product-card .product-price {
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-  
-  .product-card .buy-btn {
-    position: absolute;
-    right: 15px;
-    bottom: 15px;
-  }
-  
+  cursor: pointer;
+  padding: 5px;
+  width: 100%;
+  max-width: 300px;
+  margin: 10px;
+}
+
+.product-card .card {
+  position: relative;
+  height: 400px;
+}
+
+.product-card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.product-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-card .card-title {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.product-card .card-text {
+  flex-grow: 1;
+  margin-bottom: 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.product-card .product-price {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* .product-card .buy-btn {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+} */
+.product-card .wishlist-btn {
+  border: none;
+  background: none;
+  color: #888;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: color 0.2s; /* Smooth color transition */
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+}
+
+.product-card .wishlist-btn.in-wishlist {
+  color: red;
+}
+
+.product-card .wishlist-btn:hover {
+  color: #ff0000; /* Change color on hover */
+}
+
+.fa-heart {
+  font-size: 1.5em;
+}

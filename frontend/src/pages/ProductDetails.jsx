@@ -1,9 +1,7 @@
-import { Link, useParams,useNavigate } from 'react-router-dom'
-import { getProductDetails,addProductToCart } from '../services/products'
-//import { toast } from 'react-toastify'
-import { useEffect, useState } from 'react'
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { getProductDetails, addProductToCart, addProductToWishlist } from '../services/products'; // Ensure to import addProductToWishlist
+import { useEffect, useState } from 'react';
 import BarNav from "../components/BarNav";
-//import config from '../config'
 
 function ProductDetails() {
   const { productId } = useParams();
@@ -38,6 +36,22 @@ function ProductDetails() {
       navigate('/cart'); // Navigate to cart page
     } catch (error) {
       console.error('Failed to add product to cart:', error);
+    }
+  };
+
+  // Handle adding product to wishlist
+  const handleAddToWishlist = async () => {
+    const customerId = sessionStorage.getItem('customerid');
+    if (!customerId) {
+      console.error('Customer ID is not available');
+      return;
+    }
+
+    try {
+      await addProductToWishlist(customerId, productId);
+      alert('Product added to wishlist!');
+    } catch (error) {
+      console.error('Failed to add product to wishlist:', error);
     }
   };
 
@@ -81,6 +95,7 @@ function ProductDetails() {
           <div className="mt-5 d-flex">
             <Link to="/home" className="btn btn-danger mr-2" style={{ flex: 1 }}>Back</Link>
             <button onClick={handleAddToCart} className="btn btn-success" style={{ flex: 1 }}>Add to Cart</button>
+            <button onClick={handleAddToWishlist} className="btn btn-primary ml-2" style={{ flex: 1 }}>Add to Wishlist</button>
           </div>
         </div>
       )}

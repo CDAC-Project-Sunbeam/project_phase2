@@ -48,9 +48,6 @@ export const createProduct = async (productData, sellerId, categoryId) => {
   }
 };
 
-
-
-
 // Function to add product to cart
 export async function addProductToCart(customerId, productId, quantity) {
   const response = await axios.post('http://localhost:8080/cart', {
@@ -66,6 +63,29 @@ export async function getCartProducts(customerId) {
   const response = await axios.get(`http://localhost:8080/cart/${customerId}`);
   return response.data;
 }
+
+// Function to add product to wishlist
+export const addProductToWishlist = async (customerId, productId) => {
+  try {
+    const response = await axios.post(`http://localhost:8080/wishlist/${customerId}/${productId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error adding product to wishlist:', error);
+    throw error;
+  }
+};
+
+// Function to get wishlist products
+export const getWishlistProducts = async (customerId) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/wishlist/${customerId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching wishlist products:', error);
+    throw error;
+  }
+};
+
 
 
 

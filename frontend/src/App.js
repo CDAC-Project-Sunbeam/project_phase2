@@ -10,6 +10,8 @@ import 'react-toastify/dist/ReactToastify.css'
 import RegisterSeller from './pages/RegisterSeller';
 import RegisterCustomer from './pages/RegisterCustomer';
 import Cart from './pages/Cart';
+import Wishlist from './pages/Wishlist';
+
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import ViewCustomers from "./pages/ViewCustomers";
 import ViewSellers from "./pages/ViewSellers";
@@ -34,6 +36,8 @@ function App() {
         <Route path="/registerCustomer" element={<RegisterCustomer />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Cart" element={<Cart />} />
+        <Route path="/Wishlist" element={<Wishlist />} />
+
         {/* <Route path="/AddProduct" element={<AddProperty />} /> */}
         <Route path="/UserProfile" element={<UserProfilePage />} />
         <Route path="/UserProfileForm" element={<UserProfileForm />} />
