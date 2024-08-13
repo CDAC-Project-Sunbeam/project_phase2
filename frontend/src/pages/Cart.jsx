@@ -61,7 +61,7 @@ function Cart() {
               <h3>{item.brandName}</h3>
               <h3>{item.name}</h3>
               <img
-                style={{ height: 100 }}
+                style={{ height: 100,width:100 }}
                 src={`http://localhost:8080/${item.mainImgUrl}`}
                 alt={item.name}
                 className="product-image"
