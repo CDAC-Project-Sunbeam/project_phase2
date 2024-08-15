@@ -27,7 +27,7 @@ function SearchResults() {
               onClick={() => handleProductClick(product.id)}
             >
               <img
-                src={`http://localhost:8080/${product.mainImgUrl}`}
+                src={`http://localhost:8080/images/${product.mainImgUrl}`}
                 alt={product.name}
                 className="product-image"
               />

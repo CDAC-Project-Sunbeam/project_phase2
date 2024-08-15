@@ -3,6 +3,7 @@ package com.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,7 @@ import com.app.service.WishlistService;
 public class WishlistController {
 	@Autowired
 	WishlistService wishlistService;
-	
+	//@PreAuthorize("hasRole('CUSTOMER')") 
 	@PostMapping("/{customerId}/{productId}")
 	public ResponseEntity<?> addNewItem(@PathVariable Long customerId,@PathVariable Long productId){
 		System.out.println("in add new item");
@@ -35,6 +36,7 @@ public class WishlistController {
 		}
 		
 	}
+	//@PreAuthorize("hasRole('CUSTOMER')")
 	@GetMapping("/{customerId}")
 	public ResponseEntity<?> getAllProducts(@PathVariable Long customerId){
 		System.out.println("in get all products");
@@ -48,7 +50,7 @@ public class WishlistController {
 		
 	}
 	@DeleteMapping("/{customerId}/{productId}")
-	public ResponseEntity<?> getAllProducts(@PathVariable Long customerId,@PathVariable Long productId){
+	public ResponseEntity<?> deleteProduct(@PathVariable Long customerId,@PathVariable Long productId){
 		System.out.println("in remove product");
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(wishlistService.removeProduct(productId, customerId));

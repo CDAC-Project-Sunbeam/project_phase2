@@ -66,26 +66,42 @@ export async function getCartProducts(customerId) {
 
 // Function to add product to wishlist
 export const addProductToWishlist = async (customerId, productId) => {
+  const token = sessionStorage.getItem("token");
+
   try {
-    const response = await axios.post(`http://localhost:8080/wishlist/${customerId}/${productId}`);
-    return response.data;
+    const response = await axios.post(
+      `http://localhost:8080/wishlist/${customerId}/${productId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("Added to wishlist", response.data);
   } catch (error) {
-    console.error('Error adding product to wishlist:', error);
-    throw error;
+    console.error("Add to wishlist failed", error);
   }
 };
-
 // Function to get wishlist products
 export const getWishlistProducts = async (customerId) => {
+  const token = sessionStorage.getItem("token"); // Retrieve the token from session storage
+
   try {
-    const response = await axios.get(`http://localhost:8080/wishlist/${customerId}`);
+    const response = await axios.get(
+      `http://localhost:8080/wishlist/${customerId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        },
+      }
+    );
     return response.data;
   } catch (error) {
-    console.error('Error fetching wishlist products:', error);
+    console.error("Error fetching wishlist products:", error);
     throw error;
   }
 };
-
 
 
 

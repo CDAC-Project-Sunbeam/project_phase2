@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.custom_exceptions.AuthenticationException;
@@ -28,6 +29,9 @@ public class UserServiceImpl implements UserService {
 	private ModelMapper modelMapper;
 	@Autowired
 	private UserDao userDao;
+	
+	 @Autowired
+	 private PasswordEncoder passwordEncoder;
 	@Override
 	public User addUser(UserDTO userDt) {
 		// TODO Auto-generated method stub
@@ -63,4 +67,6 @@ public class UserServiceImpl implements UserService {
 			return modelMapper.map(userEntity, UserDTO.class);
 		}
 	}
+  
+
 }

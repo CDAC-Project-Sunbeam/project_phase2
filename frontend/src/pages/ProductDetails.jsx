@@ -70,7 +70,7 @@ function ProductDetails() {
           <img
             className="mt-2"
             style={{ height: 300 }}
-            src={`http://localhost:8080/${details.mainImgUrl}`}
+            src={`http://localhost:8080/images/${details.mainImgUrl}`}
             alt={details.name}
           />
           <div className="mt-2">

@@ -14,18 +14,18 @@ function LoginUser() {
     try {
       const result = await login(email, password);
       if (result) {
-        const { token, data: name } = result;
+        const { jwt:token, data: name } = result;
         sessionStorage.setItem("loggedIn", true);
-        sessionStorage.setItem("name", name);
-        if (result.role === "SELLER") {
+        sessionStorage.setItem("token", token);
+        if (result.role === "[SELLER]") {
           sessionStorage.setItem("sellerid", result.id);
           toast.success("Login successful");
           navigate("/SellerDashboard");
-        } else if (result.role === "ADMIN") {
+        } else if (result.role === "[ADMIN]") {
           console.log(result);
           toast.success("Admin logged in successfully");
           navigate("/AdminDashboardPage");
-        } else if (result.role === "CUSTOMER") {
+        } else if (result.role === "[CUSTOMER]") {
           sessionStorage.setItem("customerid", result.id);
           toast.success("Customer logged in successfully");
           navigate("/home");

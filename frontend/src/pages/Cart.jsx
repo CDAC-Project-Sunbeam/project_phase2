@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getCartProducts } from "../services/products"; 
-import { useNavigate } from "react-router-dom"; 
-import axios from "axios"; 
-import { toast } from "react-toastify"; 
+import { getCartProducts } from "../services/products";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 import BarNav from "../components/BarNav";
 
 function Cart() {
@@ -40,7 +40,9 @@ function Cart() {
   // Function to handle removing a product from the cart
   const handleRemoveProduct = async (customerId, productId) => {
     try {
-      await axios.delete(`http://localhost:8080/cart/${customerId}/${productId}`);
+      await axios.delete(
+        `http://localhost:8080/cart/${customerId}/${productId}`
+      );
       toast.success("Product removed from cart");
       setCartItems((prevItems) =>
         prevItems.filter((item) => item.id !== productId)
@@ -77,7 +79,7 @@ function Cart() {
       <br></br>
       <br></br>
       <br></br>
-      <h2 >Your Cart</h2>
+      <h2>Your Cart</h2>
       {cartItems.length > 0 ? (
         <div>
           {cartItems.map((item) => (
@@ -86,7 +88,7 @@ function Cart() {
               <h3>{item.name}</h3>
               <img
                 style={{ height: 100, width: 100 }}
-                src={`http://localhost:8080/${item.mainImgUrl}`}
+                src={`http://localhost:8080/images/${item.mainImgUrl}`}
                 alt={item.name}
                 className="product-image"
               />

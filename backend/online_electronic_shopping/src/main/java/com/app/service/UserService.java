@@ -14,4 +14,5 @@ public interface UserService {
 	public Optional<User> getUserDetails(Long categoryId) ;
 	public List<User> getAllCustomers();
 	public UserDTO authenticateUser(SignInRequest request);
+	
 }

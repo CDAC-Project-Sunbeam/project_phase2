@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { addProductToWishlist, addProductToCart } from '../services/products'; // Ensure to import addProductToWishlist and addProductToCart
-import '../css/Product.css'; // Ensure this CSS file is imported
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { addProductToWishlist, addProductToCart } from "../services/products"; // Ensure to import addProductToWishlist and addProductToCart
+import "../css/Product.css"; // Ensure this CSS file is imported
 import { toast } from "react-toastify";
 function Product({ product }) {
   const [isInWishlist, setIsInWishlist] = useState(false); // Track wishlist state
@@ -9,7 +9,7 @@ function Product({ product }) {
 
   const getShortDetails = () => {
     return product.description.length > 50
-      ? product.description.substr(0, 50) + '...'
+      ? product.description.substr(0, 50) + "..."
       : product.description;
   };
 
@@ -18,9 +18,9 @@ function Product({ product }) {
   };
 
   const handleAddToWishlist = async () => {
-    const customerId = sessionStorage.getItem('customerid');
+    const customerId = sessionStorage.getItem("customerid");
     if (!customerId) {
-      console.error('Customer ID is not available');
+      console.error("Customer ID is not available");
       return;
     }
     try {
@@ -28,7 +28,7 @@ function Product({ product }) {
       setIsInWishlist(true); // Update local state to reflect that the product is in the wishlist
       toast.success("Product Added To Wishlist");
     } catch (error) {
-      console.error('Failed to add product to wishlist:', error);
+      console.error("Failed to add product to wishlist:", error);
     }
   };
 
@@ -52,7 +52,7 @@ function Product({ product }) {
       <div className="card">
         <img
           className="card-img-top"
-          src={`http://localhost:8080/${product.mainImgUrl}`}
+          src={`http://localhost:8080/images/${product.mainImgUrl}`}
           alt={product.title}
         />
         <div className="card-body">
@@ -64,13 +64,15 @@ function Product({ product }) {
           <p className="card-text">{product.discount}% off</p>
           <div className="product-actions">
             <button
-              className={`btn wishlist-btn ${isInWishlist ? 'in-wishlist' : ''}`}
+              className={`btn wishlist-btn ${
+                isInWishlist ? "in-wishlist" : ""
+              }`}
               onClick={(e) => {
                 e.stopPropagation(); // Prevent triggering onProductClick
                 handleAddToWishlist();
               }}
             >
-              <i className={`fa${isInWishlist ? 's' : 'r'} fa-heart`}></i>
+              <i className={`fa${isInWishlist ? "s" : "r"} fa-heart`}></i>
             </button>
             {/* <button
               className="btn cart-btn"
