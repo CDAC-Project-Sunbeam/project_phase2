@@ -103,6 +103,7 @@ public class ProductServiceImpl implements ProductService {
 	                       .map(product -> {
 	                           ProductResponseDTO dto = modelMapper.map(product, ProductResponseDTO.class);
 	                           dto.setCategoryName(product.getCategory().getName());
+	                           dto.setSellerBusinessName(product.getSeller().getBusinessName());
 	                           return dto;
 	                       })
 	                       .collect(Collectors.toList());

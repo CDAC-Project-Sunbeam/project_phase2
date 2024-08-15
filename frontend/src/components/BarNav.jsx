@@ -46,7 +46,7 @@ function BarNav() {
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
           <Link className="nav-link" aria-current="page" to="/Home">
-            ELECTRON
+            ELECTROBUZZ
           </Link>
           <button
             className="navbar-toggler"

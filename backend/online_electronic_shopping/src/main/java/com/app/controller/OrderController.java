@@ -61,6 +61,27 @@ public class OrderController {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage()));
 			}
 	    }
+	    @GetMapping("/all")
+	    public ResponseEntity<?> getAllOrders() {
+	        try {
+				return ResponseEntity.status(HttpStatus.OK).body(orderService.getAllOrders());
+			}
+			catch(RuntimeException e){
+				System.out.println("error"+e);
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage()));
+			}
+	    }
+	    
+	    @GetMapping("/allForAdmin")
+	    public ResponseEntity<?> getAllOrdersForAdmin() {
+	        try {
+				return ResponseEntity.status(HttpStatus.OK).body(orderService.getAllOrdersForAdmin());
+			}
+			catch(RuntimeException e){
+				System.out.println("error"+e);
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage()));
+			}
+	    }
 	    
 
 	    @PostMapping("/{orderId}/payment")

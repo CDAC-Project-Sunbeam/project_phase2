@@ -1,5 +1,5 @@
-// SellerDashboard.js
 import React from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
@@ -10,15 +10,12 @@ function SellerDashboard() {
   const handleAddProductClick = () => {
     navigate(`/add-product/${sellerId}`);
   };
-
   const viewProducts = () => {
-    navigate(`/view-products`);
+    navigate(`/view-products/${sellerId}`);
   };
-
-  const manageOrders = () => {
-    navigate(`/manage-orders/${sellerId}`);
+  const handleViewOrdersClick = () => {
+    navigate(`/view-orders/${sellerId}`);
   };
-
   return (
     <div style={{ textAlign: "center", padding: "50px 0" }}>
       <Navbar />
@@ -42,7 +39,7 @@ function SellerDashboard() {
         </button>
 
         <button
-          onClick={viewProducts}
+          onClick={viewProducts} 
           className="button"
           style={{
             padding: "15px 30px",
@@ -54,11 +51,11 @@ function SellerDashboard() {
             color: "#fff",
           }}
         >
-          <span className="label">VIEW PRODUCTS</span>
+          <span className="label">MANAGE PRODUCT</span>
         </button>
 
         <button
-          onClick={manageOrders}
+          onClick={handleViewOrdersClick}
           className="button"
           style={{
             padding: "15px 30px",

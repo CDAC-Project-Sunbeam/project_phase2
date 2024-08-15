@@ -16,6 +16,7 @@ import com.app.dao.OrderItemDao;
 import com.app.dao.PaymentDao;
 import com.app.dao.ProductDao;
 import com.app.dto.AddressDTO;
+import com.app.dto.AllOrdersForAdminDTO;
 import com.app.dto.OrderItemRequestDTO;
 import com.app.dto.OrderItemResponseDTO;
 import com.app.dto.OrderRequestDTO;
@@ -114,6 +115,44 @@ public class OrderServiceImpl implements OrderService {
 				orderItemResponseDto.setProductName(orderItem.getProduct().getName());
 				orderItemResponseDto.setQuantity(orderItem.getQuantity());
 				orderItemResponseDto.setStatus(orderItem.getOrder().getStatus().toString());
+				orderItemResponseDto.setShippingAddress(modelMapper.map(orderItem.getOrder().getShippingAddress(), AddressDTO.class));
+				orderDtoItems.add(orderItemResponseDto);
+			}
+	    	
+	        return orderDtoItems;
+	    }
+	    public List<OrderItemResponseDTO> getAllOrders() {
+	    	List<OrderItem> orderItems=orderItemDao.findAll();
+	    	List<OrderItemResponseDTO> orderDtoItems=new ArrayList<OrderItemResponseDTO>();
+	    	for (OrderItem orderItem : orderItems) {
+	    		OrderItemResponseDTO orderItemResponseDto=new OrderItemResponseDTO();
+				orderItemResponseDto.setAmount(orderItem.getPrice());
+				orderItemResponseDto.setProductId(orderItem.getProduct().getId());
+				orderItemResponseDto.setProductImgUrl(orderItem.getProduct().getMainImgUrl());
+				orderItemResponseDto.setProductName(orderItem.getProduct().getName());
+				orderItemResponseDto.setQuantity(orderItem.getQuantity());
+				orderItemResponseDto.setStatus(orderItem.getOrder().getStatus().toString());
+				orderItemResponseDto.setShippingAddress(modelMapper.map(orderItem.getOrder().getShippingAddress(), AddressDTO.class));
+				orderDtoItems.add(orderItemResponseDto);
+			}
+	    	
+	        return orderDtoItems;
+	    }
+	    
+	    
+	    public List<AllOrdersForAdminDTO> getAllOrdersForAdmin() {
+	    	List<OrderItem> orderItems=orderItemDao.findAll();
+	    	List<AllOrdersForAdminDTO> orderDtoItems=new ArrayList<AllOrdersForAdminDTO>();
+	    	
+	    	for (OrderItem orderItem : orderItems) {
+	    		AllOrdersForAdminDTO orderItemResponseDto=new AllOrdersForAdminDTO();
+				orderItemResponseDto.setAmount(orderItem.getPrice());
+				orderItemResponseDto.setProductId(orderItem.getProduct().getId());
+				orderItemResponseDto.setProductImgUrl(orderItem.getProduct().getMainImgUrl());
+				orderItemResponseDto.setProductName(orderItem.getProduct().getName());
+				orderItemResponseDto.setQuantity(orderItem.getQuantity());
+				orderItemResponseDto.setStatus(orderItem.getOrder().getStatus().toString());
+				orderItemResponseDto.setId(orderItem.getOrder().getId());
 				orderItemResponseDto.setShippingAddress(modelMapper.map(orderItem.getOrder().getShippingAddress(), AddressDTO.class));
 				orderDtoItems.add(orderItemResponseDto);
 			}

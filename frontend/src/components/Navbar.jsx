@@ -17,7 +17,7 @@ function Navbar() {
           {/* Brand section (you can customize or remove this if needed) */}
           <a className="navbar-brand" href="/">
             {/* Logo or Brand Name */}
-            <span>ElecBuzz</span>
+            <span>ElectroBuzz</span>
           </a>
 
           {/* Sign Out button */}

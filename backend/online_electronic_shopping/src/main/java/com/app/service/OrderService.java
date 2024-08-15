@@ -2,6 +2,7 @@ package com.app.service;
 
 import java.util.List;
 
+import com.app.dto.AllOrdersForAdminDTO;
 import com.app.dto.OrderItemResponseDTO;
 import com.app.dto.OrderRequestDTO;
 import com.app.entities.Customer;
@@ -15,4 +16,7 @@ public interface OrderService {
     public List<OrderItemResponseDTO> getOrdersByCustomer(Long customerId);
     public List<OrderItemResponseDTO> getOrderItemsBySeller(Long sellerId);
 	public Payment addPayment(Payment payment);
+	public List<OrderItemResponseDTO> getAllOrders();
+	
+	 public List<AllOrdersForAdminDTO> getAllOrdersForAdmin() ;
 }

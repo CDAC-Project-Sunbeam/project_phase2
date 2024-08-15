@@ -1,7 +1,5 @@
 package com.app.dto;
 
-import com.app.entities.Address;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +11,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-
-public class OrderItemResponseDTO {
-	
+public class AllOrdersForAdminDTO {
+    private Long id;
 	private String productImgUrl;
 	private String productName;
 	private double amount;
@@ -23,4 +20,12 @@ public class OrderItemResponseDTO {
 	private Long productId;
 	private int quantity;
 	private AddressDTO shippingAddress;
+
+	
+	
+	
+	
+	
+	
+	
 }

@@ -1,104 +1,89 @@
+// ViewOrders.js
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
-const ViewProducts = () => {
-  const sellerId = sessionStorage.getItem("sellerid");
-  const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
+const ViewOrders = () => {
+  const { sellerId } = useParams();
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchOrders = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/product/seller/${sellerId}`
+          `http://localhost:8080/orders/seller/${sellerId}`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        const productsData = await response.json();
-        setProducts(productsData);
+        const ordersData = await response.json();
+        setOrders(ordersData);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error("Error fetching orders:", error);
       }
     };
 
-    fetchProducts();
+    fetchOrders();
   }, [sellerId]);
-
-  const handleUpdateClick = (product) => {
-    navigate(`/update-product/${product.id}`, { state: { product } });
-  };
 
   return (
     <div style={{ textAlign: "center", padding: "50px 0" }}>
       <Navbar />
-      <h1 style={{ marginBottom: "50px", marginTop: 100 }}>VIEW PRODUCTS</h1>
+      <h1 style={{ marginBottom: "50px", marginTop: 100 }}>VIEW ORDERS</h1>
 
       <div style={{ padding: "0 20px" }}>
-        <h2>Products</h2>
-        {products.length > 0 ? (
+        <h2>Orders</h2>
+        {orders.length > 0 ? (
           <table style={{ margin: "0 auto", borderCollapse: "collapse" }}>
             <thead>
               <tr>
                 <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  Product ID
+                  Product Name
                 </th>
                 <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  Name
+                  Quantity
                 </th>
                 <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  Price
+                  Amount
                 </th>
                 <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  Description
+                  Shipping Address
                 </th>
                 <th style={{ border: "1px solid #ddd", padding: "8px" }}>
-                  Actions
+                  Status
                 </th>
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => (
-                <tr key={product.id}>
+              {orders.map((order) => (
+                <tr key={order.id}>
                   <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                    {product.id}
+                    {order.productName}
                   </td>
                   <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                    {product.name}
+                    {order.quantity}
                   </td>
                   <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                    ${product.price}
+                    ${order.amount}
                   </td>
                   <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                    {product.description}
+                    {order.shippingAddress.adrLine1},{" "}
+                    {order.shippingAddress.city}, {order.shippingAddress.state},{" "}
+                    {order.shippingAddress.zipCode}
                   </td>
                   <td style={{ border: "1px solid #ddd", padding: "8px" }}>
-                    <button
-                      onClick={() => handleUpdateClick(product)}
-                      style={{
-                        padding: "10px 20px",
-                        fontSize: "14px",
-                        cursor: "pointer",
-                        border: "none",
-                        borderRadius: "5px",
-                        backgroundColor: "#28a745",
-                        color: "#fff",
-                      }}
-                    >
-                      Update
-                    </button>
+                    {order.status}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         ) : (
-          <p>No products available.</p>
+          <p>No orders available.</p>
         )}
       </div>
     </div>
   );
 };
 
-export default ViewProducts;
+export default ViewOrders;
