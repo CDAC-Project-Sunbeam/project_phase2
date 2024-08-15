@@ -45,10 +45,62 @@ function PlaceOrder() {
         `http://localhost:8080/orders/createOrder/${customerId}`,
         orderData
       );
-      toast.success("Order placed successfully");
-      navigate("/order-confirmation", {
-        state: { orderDetails: response.data },
-      });
+
+      const orderId = response.data.id;
+
+      // Convert totalAmount to an integer
+      const amount = parseInt(totalAmount, 10);
+
+      // Validate amount
+      if (isNaN(amount) || amount < 100) {
+        alert(
+          "Invalid amount. Please ensure the amount is an integer and at least 100."
+        );
+        return;
+      }
+
+      var options = {
+        key: "rzp_test_KfkSVTMrjRudas",
+        key_secret: "WkTAxsYbM61XV2zLioGlRphd",
+        currency: "INR",
+        amount: amount * 100, // Razorpay amount is in paise
+        name: "STARTUP_PROJECTS",
+        description: "for testing purpose",
+        handler: async function (response) {
+          toast.success("Your Order Is Placed");
+
+          try {
+            // await axios.post(`http://localhost:8080/order/checkout`, {
+            //   userId: sessionStorage.getItem("id"),
+            //   addressId: orderData.shippingAddress.id, // Use the ID from orderData
+            //   razorpayPaymentId: response.razorpay_payment_id,
+            //   razorpayOrderId: response.razorpay_order_id,
+            //   razorpaySignature: response.razorpay_signature,
+           // });
+
+            navigate("/order-confirmation", {
+              state: { orderDetails: response.data },
+            });
+          } catch (error) {
+            console.error("Error during checkout:", error);
+            toast.error("Failed to complete the checkout process.");
+          }
+        },
+        prefill: {
+          name: "ElectroZone",
+          email: "admin@gmail.com",
+          contact: "7904425033",
+        },
+        notes: {
+          address: "Razorpay Corporate office",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+
+      var pay = new window.Razorpay(options);
+      pay.open();
     } catch (error) {
       console.error("Error placing order:", error);
       toast.error("Failed to place order");

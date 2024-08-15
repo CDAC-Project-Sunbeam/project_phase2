@@ -28,8 +28,8 @@ public class Payment {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    private String paymentMethod;
-    private String paymentStatus;
-    private double amount;
+    private String razorpayPaymentId;
+    private String razorpayOrderId;
+    private String razorpaySignature;
     
 }

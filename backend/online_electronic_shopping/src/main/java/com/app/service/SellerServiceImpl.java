@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.CustomerDao;
@@ -25,10 +26,13 @@ public class SellerServiceImpl implements SellerService {
 	private SellerDao sellerDao;
 	@Autowired
 	private ModelMapper modelMapper;
+	 @Autowired
+	 private PasswordEncoder passwordEncoder;
 	@Override
 	public Seller addSeller(SellerDTO sellerDTO) {
 		// TODO Auto-generated method stub
 		Seller seller = modelMapper.map(sellerDTO, Seller.class);
+		seller.setPassword(passwordEncoder.encode(seller.getPassword()));
 		seller.setRole(Role.valueOf("SELLER"));
 		return sellerDao.save(seller);
 		
