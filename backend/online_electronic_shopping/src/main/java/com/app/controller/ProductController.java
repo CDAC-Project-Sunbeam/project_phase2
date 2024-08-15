@@ -120,6 +120,7 @@ public class ProductController {
 	
 	 @GetMapping("/seller/{sellerId}")
 	    public ResponseEntity<?> getProductsBySeller(@PathVariable Long sellerId) {
+		 System.out.println(sellerId);
 	        try {
 	            return ResponseEntity.status(HttpStatus.OK).body(productService.getProductsBySeller(sellerId));
 	        } catch (RuntimeException e) {

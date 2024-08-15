@@ -27,6 +27,7 @@ import SearchResults from './pages/SearchResults';
 import PlaceOrder from './pages/PlaceOrder';
 import OrderConfirmation from "./pages/OrderConfirmation";
 import CustomerProfile from "./pages/CustomerProfile";
+import ViewProducts from './pages/ViewProducts';
 function App() {
   return (
     <div className="container">
@@ -63,6 +64,7 @@ function App() {
         <Route path="/place-order" element={<PlaceOrder />} />
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
         <Route path="/profile" element={<CustomerProfile />} />
+        <Route path="/view-products" element={<ViewProducts />} />
       </Routes>
 
       <ToastContainer />

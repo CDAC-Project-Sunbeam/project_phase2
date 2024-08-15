@@ -12,7 +12,7 @@ function SellerDashboard() {
   };
 
   const viewProducts = () => {
-    navigate(`/view-products/${sellerId}`);
+    navigate(`/view-products`);
   };
 
   const manageOrders = () => {
