@@ -1,31 +1,53 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "../css/Profile.css";
 
 const UserProfilePage = () => {
+  const navigate = useNavigate();
 
-const navigate = useNavigate()
-const onEdit = () => {
-  navigate('/userprofileform')
-}
+  const onEdit = () => {
+    navigate("/userprofileform");
+  };
 
   return (
-    <div className="container my-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card">
-            <div className="card-body text-center">
-              <img
-                src="https://via.placeholder.com/150"
-                alt="Profile"
-                className="rounded-circle mb-3"
-              />
-              <h4>SIDDHANT </h4>
-              <p className="text-muted mb-1">Mobile: 9988556644</p>
-              <p className="text-muted mb-1">Email: test@example.com</p>
-              <p className="text-muted mb-1">Address: Hinjewadi, Pune</p>
-              <p className="text-muted mb-1">Date of Birth: January 1, 2000</p>
-              <button onClick={onEdit} className="btn btn-primary btn-sm">Edit Profile</button>
+    <div className="user-profile-page">
+      <div className="profile-container">
+        <div className="profile-card">
+          <div className="profile-header">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Profile"
+              className="profile-img"
+            />
+          </div>
+          <div className="profile-body">
+            <div className="info">
+              <div className="info-item">
+                <h4>Name:</h4>
+                <p>SIDDHANT</p>
+              </div>
+              <div className="info-item">
+                <h4>Mobile:</h4>
+                <p>9988556644</p>
+              </div>
+              <div className="info-item">
+                <h4>Email:</h4>
+                <p>test@example.com</p>
+              </div>
+              <div className="info-item">
+                <h4>Date of Birth:</h4>
+                <p>January 1, 2000</p>
+              </div>
             </div>
+            <div className="address-info">
+              <h4>Address:</h4>
+              <p>Hinjewadi, Pune</p>
+            </div>
+          </div>
+          <div className="profile-footer">
+            <button onClick={onEdit} className="edit-btn">
+              Edit Profile
+            </button>
           </div>
         </div>
       </div>

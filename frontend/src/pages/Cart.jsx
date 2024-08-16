@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import BarNav from "../components/BarNav";
+import "../css/Cart.css"; // Import the new CSS
 
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
@@ -71,47 +72,52 @@ function Cart() {
   }, [customerId]);
 
   return (
-    <div>
+    <div className="cart-page">
       <div>
         <BarNav />
       </div>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <h2>Your Cart</h2>
-      {cartItems.length > 0 ? (
-        <div>
-          {cartItems.map((item) => (
-            <div key={item.id} className="cart-item">
-              <h3>{item.brandName}</h3>
-              <h3>{item.name}</h3>
-              <img
-                style={{ height: 100, width: 100 }}
-                src={`http://localhost:8080/images/${item.mainImgUrl}`}
-                alt={item.name}
-                className="product-image"
-              />
-              <p>Quantity:</p>
-              <input
-                type="number"
-                value={item.quantity}
-                min="1"
-                onChange={(e) => handleQuantityChange(item.id, e.target.value)}
-              />
-              <p>Price: {item.price}</p>
-              <p>Discount: {item.discount}%</p>
-              <button onClick={() => handleRemoveProduct(customerId, item.id)}>
-                Remove
-              </button>
-              <hr />
-            </div>
-          ))}
-          <button onClick={handlePlaceOrder}>Place Order</button>
-        </div>
-      ) : (
-        <p>Your cart is empty.</p>
-      )}
+      <div className="cart-content">
+        <h2 className="cart-title">Your Cart</h2>
+        {cartItems.length > 0 ? (
+          <div className="cart-items-container">
+            {cartItems.map((item) => (
+              <div key={item.id} className="cart-item">
+                <img
+                  src={`http://localhost:8080/images/${item.mainImgUrl}`}
+                  alt={item.name}
+                  className="product-image"
+                />
+                <div className="product-details">
+                  <h3 className="product-name">{item.name}</h3>
+                  <p className="product-brand">{item.brandName}</p>
+                  <p>Quantity:</p>
+                  <input
+                    type="number"
+                    value={item.quantity}
+                    min="1"
+                    onChange={(e) =>
+                      handleQuantityChange(item.id, e.target.value)
+                    }
+                  />
+                  <p className="product-price">Price: ${item.price}</p>
+                  <p className="product-discount">Discount: {item.discount}%</p>
+                  <button
+                    onClick={() => handleRemoveProduct(customerId, item.id)}
+                    className="remove-btn"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))}
+            <button onClick={handlePlaceOrder} className="place-order-btn">
+              Place Order
+            </button>
+          </div>
+        ) : (
+          <p className="empty-message">Your cart is empty.</p>
+        )}
+      </div>
     </div>
   );
 }
