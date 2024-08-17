@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addProductToWishlist, addProductToCart } from "../services/products"; // Ensure to import addProductToWishlist and addProductToCart
+import { addProductToWishlist} from "../services/products"; // Ensure to import addProductToWishlist and addProductToCart
 import "../css/Product.css"; // Ensure this CSS file is imported
 import { toast } from "react-toastify";
 function Product({ product }) {

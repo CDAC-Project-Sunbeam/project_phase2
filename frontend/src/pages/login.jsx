@@ -13,10 +13,12 @@ function LoginUser() {
   const onLogin = async () => {
     try {
       const result = await login(email, password);
+      console.log(result);
       if (result) {
-        const { jwt:token, data: name } = result;
+        const { jwt, role } = result;
         sessionStorage.setItem("loggedIn", true);
-        sessionStorage.setItem("token", token);
+        sessionStorage.setItem("token", jwt);
+        sessionStorage.setItem("role",role);
         if (result.role === "[SELLER]") {
           sessionStorage.setItem("sellerid", result.id);
           toast.success("Login successful");
